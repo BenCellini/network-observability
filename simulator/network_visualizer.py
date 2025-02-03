@@ -203,7 +203,7 @@ class FCNNVisualizer:
                 else:
                     self.layer_continuation[neuron_index] = neuron_index_list[neuron_index]
 
-    def draw(self, ax=None, dpi=150):
+    def draw(self, ax=None, dpi=100):
         """Draws the fully connected feedforward neural network.
         """
         self.calculate_neuron_positions()

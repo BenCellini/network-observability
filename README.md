@@ -14,5 +14,6 @@ This example creates a simple feedforward PyTorch model with linear output funct
 
 ![network_observability.png](img/network_observability_plot.png)
 
-Also see more in dpeth visualziation examples:
+Also see more in depth visualization examples:
 [network_visualization_example.ipynb](notebooks%2Fnetwork_visualization_example.ipynb)
+![network_visualization.png](img/network_visualization.png)
