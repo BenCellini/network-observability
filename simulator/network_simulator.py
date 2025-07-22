@@ -2,6 +2,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 import numpy as np
+import copy
 
 
 class NetworkSimulator:
@@ -152,7 +153,7 @@ class NetworkSimulator:
                 param.data = x[start_idx:start_idx + num_elements].view(param_shape)
                 start_idx += num_elements
 
-    def simulate(self, x0=None, u=None, numpy_output=True):
+    def simulate(self, x0=None, u=None, aux=None, numpy_output=True):
         """
         Simulates the model with the given input and weights.
 
@@ -165,12 +166,11 @@ class NetworkSimulator:
         :param u: The input tensor to the network over time (w x m) where w is the number
                   of time-steps & b is the number of inputs
         :type u: torch.Tensor, np.ndarray
+        :param aux: auxiliary input
+        :param numpy_output: boolean to mke the output y a numpy array
 
         :return y: The output of the network after performing a forward pass with the specified weights.
         :rtype y: torch.Tensor, np.ndarray
-
-        :param numpy_output: boolean to mke the output y a numpy array
-
         """
 
         # Only set the model's weights if x is provided
@@ -226,6 +226,12 @@ class NetworkSimulator:
         self.y = pd.DataFrame(y, columns=self.measurement_names)
 
         return y
+
+    def get_weights(self):
+        """ Returns the weights of the model.
+        """
+        x = {name: param.data.view(-1) for name, param in self.model.named_parameters()}
+        return copy.deepcopy(x)
 
     def get_layer_outputs(self):
         """
